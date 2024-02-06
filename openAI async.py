@@ -6,7 +6,7 @@ import asyncio
 from openai import AsyncOpenAI
 
 client = AsyncOpenAI(
-    api_key="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"
+    api_key="sk-xxxxxxxxxxxxxx"
 
 )
 
