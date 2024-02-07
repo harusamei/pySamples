@@ -1,9 +1,11 @@
 # 使用sanic框架，实现一个简单的时间格式规范化服务
 
-from sanic import Request, Sanic, json,text
+from sanic import Request, response,Sanic, json,text
+from sanic.response import html
 import asyncio
 
 from timeProcess import DateTimeProc
+from changeHtml import addNewDiv
 from urllib.parse import unquote
 
 app = Sanic("DateNormalize")
@@ -15,6 +17,9 @@ tags = [
     {"url": "/en", "name": "规范英文时间格式"},
     {"url": "/home", "name": "规范中文数字格式"}
 ]
+
+with open("form.html", "r") as f:
+    html_form = f.read()
 
 def isHighFreqIp(request):
     ip_address = request.ip
@@ -58,8 +63,8 @@ async def print_on_request(request):
         return json({'message': 'Too many requests from your IP address!'})
     print("A request is coming")
 
-@app.route("/")
-@app.route("/home")
+@app.route("/",name="root")
+@app.route("/home",name="home")
 async def home(request : Request):
     
     temStr = unquote(request.query_string)
@@ -86,6 +91,21 @@ async def help(request: Request):
     print(request.args)
     return json(tags)
 
+@app.get("/showForm")
+async def showForm(request: Request):
+
+    return html(html_form)
+
+@app.route("/submit", methods=["POST"])
+async def submit(request):
+    user_name = request.form.get("user_name")
+    temStr =""
+    if user_name:
+        temStr = f"Hello, {user_name}! Your form is submitted successfully."
+    else:
+        temStr = "Please enter your name."
+    
+    return html(addNewDiv(html_form, temStr))
 
 if __name__ == "__main__":
 
