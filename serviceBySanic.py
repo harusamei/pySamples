@@ -18,7 +18,7 @@ tags = [
     {"url": "/home", "name": "规范中文数字格式"}
 ]
 
-with open("form.html", "r") as f:
+with open("form.html", "r",encoding='utf-8') as f:
     html_form = f.read()
 
 def isHighFreqIp(request):

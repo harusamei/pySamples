@@ -1,17 +1,71 @@
-<!-- form.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanic Web Service</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑色调表单</title>
+<style>
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 300px;
+    margin: 50px auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #fff;
+    background-color: #333;
+    color: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+</style>
 </head>
 <body>
-    <h1>Sanic Web Service</h1>
-    <form method="POST" action="/submit">
-        <label for="input_text">Enter your name:</label><br>
-        <input type="text" id="input_text" name="user_name"><br><br>
-        <input type="submit" value="Submit">
+
+<div class="container">
+    <form action="/submit" method="post">
+        <div class="form-group">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" placeholder="请输入您的姓名">
+        </div>
+        <div class="form-group">
+            <label for="dob">出生日期:</label>
+            <input type="date" id="dob" name="dob">
+        </div>
+        <button type="submit" class="btn">提交</button>
     </form>
+</div>
+
 </body>
 </html>
