@@ -2,8 +2,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.linspace(0, 2*np.pi, 100)
-y = np.sin(x)
+def parabola(x, a, h, k):
+    return a * (x - h)**2 + k
 
-plt.plot(x, y)
+# 定义抛物线参数
+a = 1  # 抛物线开口方向和形状参数
+h = 0  # 顶点横坐标
+k = 0  # 顶点纵坐标
+
+# 生成x值范围
+x_values = np.linspace(-10, 10, 400)
+# 计算对应的y值
+y_values = parabola(x_values, a, h, k)
+
+# 绘制抛物线图像
+plt.plot(x_values, y_values, label='Parabola')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Parabola')
+plt.legend()
+plt.grid(True)
 plt.show()
