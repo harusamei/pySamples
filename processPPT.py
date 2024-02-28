@@ -6,6 +6,7 @@ from pptx.util import Inches
 from pptx.dml.color import RGBColor
 from copy import deepcopy
 import glob
+import sys
 
 def getContent(shape):
     content = ""
@@ -68,7 +69,7 @@ def add_nogroup_shape(shape, slide):
 
 def add_slide(slide, prs):
 
-    new_slide = prs.slides.add_slide(prs.slide_layouts[6])  # 6 blank layout, 1 title content
+    new_slide = prs.slides.add_slide(prs.slide_layouts[27])  # 6 blank layout, 1 title content
     print(f" num of shape {len(slide.shapes)}") 
     for i, shape in enumerate(slide.shapes):
         print(f"shape {i} type {shape.shape_type} name {shape.name}")
@@ -85,6 +86,7 @@ if __name__ == '__main__':
     file_names = glob.glob('data/*.pptx')
     # 创建一个新的PowerPoint文件
     mergedPrs = Presentation('data/z.pptx')
+
     # 遍历每个文件并将其内容复制到新的文件中
     for file_name in file_names:
         if file_name in ['data\merged.pptx','data\z.pptx']:
