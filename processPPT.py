@@ -6,6 +6,7 @@ from pptx.util import Inches
 from pptx.dml.color import RGBColor
 from copy import deepcopy
 import glob
+import sys
 
 def getContent(shape):
     content = ""
@@ -84,6 +85,7 @@ if __name__ == '__main__':
     file_names = glob.glob('data/*.pptx')
     # 创建一个新的PowerPoint文件
     mergedPrs = Presentation('data/z.pptx')
+
     # 遍历每个文件并将其内容复制到新的文件中
     for file_name in file_names:
         if file_name in ['data\merged.pptx','data\z.pptx']:
