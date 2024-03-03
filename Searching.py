@@ -132,17 +132,35 @@ def search(es, index_name, query):
     result = es.search(index=index_name, body={"query": {"match": {"content": query}}})
     return result
 
+def define_analyzer():
+    {
+    "settings": {
+        "analysis": {
+        "analyzer": {
+            "custom_analyzer": {
+            "tokenizer": "standard",
+            "filter": ["decimal_digit_filter"]
+            }
+        },
+        "filter": {
+            "decimal_digit_filter": {
+            "type": "decimal_digit"
+            }
+        }
+        }
+    }
+    }
 
 if __name__ == '__main__':
     # 连接到本地的 Elasticsearch 实例
-    es = Elasticsearch(['http://localhost:9200'])
+    es = Elasticsearch(['http://localhost:9200'],
+                       basic_auth=('elastic', 'a3ghnRyzop2O1B2yOnqT'))
     if not es.ping():
         raise ValueError("Connection failed")
     else:
         print("Connected to Elasticsearch")
 
-    empty_es(es)
-    get_indices(es)
+    
     sys.exit(1)
 
     index_name = "my_index"
