@@ -13,6 +13,9 @@ def csv2jsonfile(csv_rows, json_filename):
     with open(json_filename, 'w') as json_file:
         json.dump(csv_rows, json_file, indent=4)
 
+def csv2json(csv_rows):
+    return json.dumps(csv_rows, indent=4, ensure_ascii=False)
+
 def oneRow2json(csv_row):
     # 不加ensure_ascii=False的话，中文会被转换为Unicode编码,\uXXXX
     return json.dumps(csv_row, indent=4, ensure_ascii=False)
@@ -26,7 +29,7 @@ if __name__ == '__main__':
     json_filename = 'data/xiaoxin.json'
 
     csv_rows = read_csv(csv_filename)
-    csv2jsonfile(csv_rows, json_filename)
-    print(oneRow2json(csv_rows[0]))
-    print(json2dict(oneRow2json(csv_rows[0])))
+    tDic = json2dict(csv2json(csv_rows))
+    print(len(tDic))
+    print(tDic[0]['machineName'])
     

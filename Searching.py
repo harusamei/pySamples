@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import RequestError
 import sys
+import processCSV as pcsv
 
 def create_index(es, index_name, body=None, analyzer=None):
 
@@ -141,15 +142,24 @@ if __name__ == '__main__':
     else:
         print("Connected to Elasticsearch")
 
-    empty_es(es)
-    get_indices(es)
-    sys.exit(1)
-
-    index_name = "my_index"
-    create_index(es,index_name)
+    index_name = "pc_notebook"
+    
     doc_count = es.count(index=index_name)['count']
     print("Number of documents in index '{}': {}".format(index_name, doc_count))
 
+    dataFile = 'data/xiaoxin.csv'
+    csv_rows = pcsv.read_csv(dataFile)
+    docs = pcsv.json2dict(pcsv.csv2json(csv_rows))
+    print(len(docs))
+    print(docs[0]['machineName'])
+    docs[1]['size']={'length': '10', 'width': '20', 'height': '30'}
+
+    es.index(index=index_name, body=docs[1])
+    es.indices.refresh(index=index_name)
+
+    #insert_docs(es, index_name, docs)
+
+    sys.exit(0)
     # 插入文档
     doc =[{"title": "Elasticsearch example", "content": "This is an example of using Elasticsearch in Python"}]
     doc.append({"title": "Python", "content": "Python is a widely used programming language"})
