@@ -69,11 +69,10 @@ def add_nogroup_shape(shape, slide):
 
 def add_slide(slide, prs):
 
-    new_slide = prs.slides.add_slide(prs.slide_layouts[27])  # 6 blank layout, 1 title content
+    new_slide = prs.slides.add_slide(prs.slide_layouts[6])  # PPTX 内置layout, 6 blank, 1 title content
     print(f" num of shape {len(slide.shapes)}") 
     for i, shape in enumerate(slide.shapes):
         print(f"shape {i} type {shape.shape_type} name {shape.name}")
-        print(f"[ {shape.left} {shape.top} {shape.width} {shape.height} ]")
         if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
             add_group_shape(shape, new_slide)
         else:
