@@ -136,7 +136,8 @@ def search(es, index_name, query):
 
 if __name__ == '__main__':
     # 连接到本地的 Elasticsearch 实例
-    es = Elasticsearch(['http://localhost:9200'])
+    es = Elasticsearch(['http://localhost:9200'],
+                       basic_auth=('elastic', 'a3ghnRyzop2O1B2yOnqT'))
     if not es.ping():
         raise ValueError("Connection failed")
     else:
@@ -144,6 +145,11 @@ if __name__ == '__main__':
 
     index_name = "pc_notebook"
     
+    
+    sys.exit(1)
+
+    index_name = "my_index"
+    create_index(es,index_name)
     doc_count = es.count(index=index_name)['count']
     print("Number of documents in index '{}': {}".format(index_name, doc_count))
 
