@@ -1,10 +1,10 @@
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import RequestError
 from elasticsearch.helpers import scan
-import sys
 import re
 from processCSV import pcsv
 from datetime import datetime
+import sys
 
 def create_index(es, index_name, body_filename):
 # bodyfile is csv file with the first row as the schema, second row as the type
@@ -246,8 +246,9 @@ def get_docids(result):
 
 if __name__ == '__main__':
     # 连接到本地的 Elasticsearch 实例
-    es = Elasticsearch(['http://localhost:9200'],
+    es = Elasticsearch(['http://10.110.153.75:9200'],
                        basic_auth=('elastic', 'a3ghnRyzop2O1B2yOnqT'))
+   
     if not es.ping():
         raise ValueError("Connection failed")
     else:
@@ -256,4 +257,6 @@ if __name__ == '__main__':
    
     index_name = "leproducts"
     data_filename = "data\pSch.csv"
+    
+    load_data(es, index_name, data_filename)
     
