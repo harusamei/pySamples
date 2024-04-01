@@ -1,6 +1,5 @@
 from elasticsearch import Elasticsearch
-from esIndex import test_field_analyzer
-
+#from esIndex import test_field_analyzer
 
 class ESQuery:
 
@@ -150,6 +149,7 @@ class ESQuery:
 
         response = self.es.search(index=index, body=query)
         return response['aggregations'][m_value]['value']
+    
     @staticmethod
     def list_result(response):
         #满足查询条件的文档数

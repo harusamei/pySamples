@@ -16,6 +16,10 @@ async def callGPT(query):
     chat_completion = await client.chat.completions.create(
         messages=[
             {
+                "role": "system",
+                "content":"你是一个编程助手，可以将自然语言的查询转换为SQL查询。"
+            },
+            {
                 "role": "user",
                 "content": query,
             }
